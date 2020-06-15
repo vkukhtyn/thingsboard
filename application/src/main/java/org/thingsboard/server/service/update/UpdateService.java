@@ -16,9 +16,13 @@
 package org.thingsboard.server.service.update;
 
 import org.thingsboard.server.common.data.UpdateMessage;
+import org.thingsboard.server.common.data.UpgradeBlockersMessage;
+import org.thingsboard.server.common.data.exception.ThingsboardException;
 
 public interface UpdateService {
 
     UpdateMessage checkUpdates();
+
+    UpgradeBlockersMessage getPotentialUpgradeBlockers() throws ThingsboardException;
 
 }

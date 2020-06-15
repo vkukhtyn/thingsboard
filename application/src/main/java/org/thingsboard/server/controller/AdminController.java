@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.thingsboard.rule.engine.api.MailService;
 import org.thingsboard.server.common.data.AdminSettings;
+import org.thingsboard.server.common.data.UpgradeBlockersMessage;
 import org.thingsboard.server.common.data.UpdateMessage;
 import org.thingsboard.server.common.data.exception.ThingsboardException;
 import org.thingsboard.server.common.data.id.TenantId;
@@ -132,4 +133,14 @@ public class AdminController extends BaseController {
         }
     }
 
+    @PreAuthorize("hasAuthority('SYS_ADMIN')")
+    @RequestMapping(value = "/potentialUpgradeBlockers", method = RequestMethod.GET)
+    @ResponseBody
+    public UpgradeBlockersMessage getPotentialUpgradeBlockers() throws ThingsboardException {
+        try {
+            return updateService.getPotentialUpgradeBlockers();
+        } catch (Exception e) {
+            throw handleException(e);
+        }
+    }
 }
